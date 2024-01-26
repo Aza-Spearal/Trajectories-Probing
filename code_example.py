@@ -37,12 +37,16 @@ class LabeledTokenizer:
 
         return self.map[label]
 
-    def tokenize(self, data):
+    def tokenize(self, data, uses_start_token=True):
         input_ids_list = []
         label_ids_list = []
 
-        for (text, label) in data:
+        for index, (text, label) in enumerate(data):
             input_ids = self.model.get_ids(text + "\n")
+
+            # Remove <s> token from the start since it's not the start of the text
+            if uses_start_token and index > 0:
+                input_ids = input_ids[:, 1:]
 
             label_id = self.get_label_id(label)
             label_ids = torch.zeros_like(input_ids, dtype=torch.int32)
@@ -66,6 +70,7 @@ class LabeledTokenizer:
         token_strings = [s.replace("<0x0A>", "\n") for s in token_strings]
         labels_seen = set()
 
+        labels = np.array(labels)
         for token_str, label in zip(token_strings, labels):
             color = self.colors[label % len(self.colors)]  # Get color for label
             print(f"{color}{token_str}{self.reset_color}", end='')  # Print with color and reset afterwards
@@ -75,7 +80,7 @@ class LabeledTokenizer:
 
 
     def print_color_legend(self, labels_seen):
-        print("\nLegend of Colours:\n")
+        print("\nLegend of Colours:")
         for label in list(labels_seen):
             color = self.colors[label % len(self.colors)]
             label_text = self.reverse_map[label]
@@ -96,6 +101,8 @@ def train_predictor_layer(m: Model):
     # Get the Test Data
     code_ids_test, labels_test = labeled_tokenizer.tokenize(code_short)
     stream_test = m.get_residual_stream(input_ids=code_ids_test).to('cpu')
+
+    labeled_tokenizer.print_colorful_text(code_ids_test[0], labels_test)
 
     scores = []
     Y_predicted, best_score, best_layer = None, 0.0, 0
