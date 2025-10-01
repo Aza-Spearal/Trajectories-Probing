@@ -1,10 +1,10 @@
 # Project Structure
 
-### dataset_generation
-This folder enables us to create the synthetic dataset.
+`dataset_generation/`
+Scripts for creating the synthetic dataset.
 
-### dataset_json_to_pytorch
-This folder enables us to transform the JSON datasets into PyTorch datasets.
+`dataset_json_to_pytorch/`
+Scripts for converting JSON datasets into PyTorch-compatible datasets.
 
 ### results
 Contains the result of the 4 possibilities:
