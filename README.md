@@ -25,7 +25,7 @@ Script for plotting dimensionality reduction using PHATE.
 
 ## `model.py`
 Replacement for the existing model file in  
-[`nickypro/taker/tree/main/src/taker`](nickypro/taker/tree/main/src/taker).
+[`https://github.com/nickypro/taker/tree/main/src/taker`](https://github.com/nickypro/taker/tree/main/src/taker).
 
 ## `predictor_lazy.py`
 Probes the dataset by loading it as a PyTorch dataset and generating CSV result files.
