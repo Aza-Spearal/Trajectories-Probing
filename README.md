@@ -1,37 +1,38 @@
-# Project Structure
+# Repository Structure
 
-`dataset_generation/`
+## `dataset_generation/`
 Scripts for creating the synthetic dataset.
 
-`dataset_json_to_pytorch/`
+## `dataset_json_to_pytorch/`
 Scripts for converting JSON datasets into PyTorch-compatible datasets.
 
-### results
-Contains the result of the 4 possibilities:
-- **core_activation**
-- **core_residual**
-- **synthetic_activation**
-- **synthetic_residual**
+## `results/`
+Contains the results of four configurations:
 
-Each of these contains 3 CSV files:
-- **mazy** → shows the results of the true model.  
-- **razy** → shows the results of the random model.  
-- **mazy-razy** → shows the difference between the true model results and the random model results.  
+- `core_activation`  
+- `core_residual`  
+- `synthetic_activation`  
+- `synthetic_residual`  
 
-### PHATE_Dimensional_Reduction
-This file plots the dimensional reduction with PHATE.
+Each folder contains three CSV files:
 
-### model.py
-Should replace the one in  
-[`taker/tree/main/src/taker`](https://github.com/nickypro/taker).  
+- **`mazy`** → results of the true model  
+- **`razy`** → results of the random model  
+- **`mazy-razy`** → difference between the true model and random model results  
 
-### predictor_lazy.py
-This file probes the dataset.  
-It uses the PyTorch dataset and creates the CSV files as results.
+## `PHATE_Dimensional_Reduction`
+Script for plotting dimensionality reduction using PHATE.
 
-### synthetic_dataset.json
-This is the synthetic dataset file.  
-(The CORE dataset is too big to be uploaded.)
+## `model.py`
+Replacement for the existing model file in  
+[`taker/tree/main/src/taker`](taker/tree/main/src/taker).
 
-### old_version_feb-2024
-Contains files used for the first iteration of the paper (February 2024).
+## `predictor_lazy.py`
+Probes the dataset by loading it as a PyTorch dataset and generating CSV result files.
+
+## `synthetic_dataset.json`
+Synthetic dataset file.  
+(**Note**: The CORE dataset is too large to upload.)
+
+## `old_version_feb-2024/`
+Contains files from the first iteration of the paper (February 2024).
