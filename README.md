@@ -1,13 +1,17 @@
 # Repository Structure
 
 ## `dataset_generation/`
-Scripts for creating the synthetic dataset in JSON format. Depending on when you where in the process you want begin. You can use a small set of prompts to create more prompts. If you already have the prompts you want, you can generate the texts with the scripts. If you already have your texts, you can section them with the scripts. If you already have texts sectionned, you can label them with the scripts.
+Scripts to create the synthetic dataset in JSON format. Depending on what stage you are at, you can:
+- Use a small set of prompts to expand and generate more prompts with the script `generate_dataset.ipynb`.
+- If you already have prompts, generate texts from them with the script `generate_dataset.ipynb`.
+- If you already have texts, section them with the script `chunk_label_GPT-4.ipynb`.
+- If you already have sectioned texts, label them with the script `chunk_label_GPT-4.ipynb`.
 
 ## `dataset_json_to_pytorch/`
-Scripts for converting a JSON dataset into the Mistral-7B activations or residual stream and get them as PyTorch files. You need it to probe with `predictor_lazy.py`.
+Scripts to convert a JSON dataset into Mistral-7B activations or the residual stream, and save them as PyTorch files. These files are required by `predictor_lazy.py` for probing.
 
 ## `results/`
-Contains our probing results of with the four configurations:
+Contains probing results for the four configurations:
 
 - `core_activation`  
 - `core_residual`  
@@ -21,13 +25,15 @@ Each folder contains three CSV files:
 - **`mazy-razy`** → difference between the true model and random model results  
 
 ## `PHATE_Dimensional_Reduction`
-Script for plotting dimensionality reduction using PHATE. You need a JSON dataset.
+Script for plotting dimensionality reduction using PHATE. Requires a JSON dataset.
 
 ## `model.py`
-Replacement for the existing model file in [`https://github.com/nickypro/taker/tree/main/src/taker`](https://github.com/nickypro/taker/tree/main/src/taker). You need this file to use `predictor_lazy.py`.
+Replacement for the existing model file in the `taker` repo ([`https://github.com/nickypro/taker/tree/main/src/taker`](https://github.com/nickypro/taker/tree/main/src/taker)). This update is required to run `predictor_lazy.py`.
 
 ## `predictor_lazy.py`
 The probing file. It need PyTorch activations or residual stream dataset and the update of the `model.py` file. It generate CSV result files
+
+Probing script. It requires PyTorch activations or residual stream files (from `dataset_json_to_pytorch/`) and the updated `model.py`. The script generates CSV result files that you can see in the `results/` folders.
 
 ## `synthetic_dataset.json`
 Synthetic dataset file.  
